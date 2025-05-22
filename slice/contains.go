@@ -1,13 +1,13 @@
 package slice
 
-// Contains 判断 src 里面是否存在 dst
+// Contains 判断 src 里面是否存在 target
 func Contains[T comparable](src []T, target T) bool {
 	return ContainsFunc[T](src, func(src T) bool { return src == target })
 }
 
-// ContainsFunc 判断 src 里面是否存在 dst
+// ContainsFunc 判断 src 里面是否存在 target
 // 应该优先使用 Contains
-func ContainsFunc[T any](src []T, equal func(src T) bool) bool {
+func ContainsFunc[T any](src []T, equal func(target T) bool) bool {
 	for _, v := range src {
 		if equal(v) {
 			return true

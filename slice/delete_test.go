@@ -90,6 +90,14 @@ func TestFilterDelete(t *testing.T) {
 			wantSlice: []int{123, 789},
 		},
 		{
+			name:  "删除奇数的元素",
+			slice: []int{123, 456, 789},
+			delCondition: func(slice int, index int) bool {
+				return slice%2 == 1
+			},
+			wantSlice: []int{456},
+		},
+		{
 			name:  "删除所有元素",
 			slice: []int{123, 456, 789},
 			delCondition: func(slice int, index int) bool {

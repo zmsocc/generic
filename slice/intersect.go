@@ -2,17 +2,20 @@ package slice
 
 // IntersectSet 取交集，只支持 comparable 类型
 // 已去重
-func IntersectSet[T comparable](src1 []T, src2 []T) []T {
-	src1Map := toMap(src1)
-	res := make([]T, 0, len(src2))
-	for _, v := range src2 {
-		if _, ok := src1Map[v]; ok {
+func IntersectSet[T comparable](src []T, target []T) []T {
+	srcMap := toMap(src)
+	res := make([]T, 0, len(target))
+	for _, v := range target {
+		if _, ok := srcMap[v]; ok {
 			res = append(res, v)
 		}
 	}
 	return deduplicate[T](res)
 }
 
+// IntersectSetFunc 取交集，支持任意类型
+// 已去重
+// 你应该优先使用 IntersectSet
 func IntersectSetFunc[T any](src1 []T, src2 []T, equal equalFunc[T]) []T {
 	res := make([]T, 0, len(src1))
 	for _, v := range src2 {

@@ -34,7 +34,9 @@ func TestFilterMap(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			res := FilterMap[int, string](tc.slice, func(index int, src int) (string, bool) { return strconv.Itoa(src), src >= 0 })
+			res := FilterMap[int, string](tc.slice, func(index int, src int) (string, bool) {
+				return strconv.Itoa(src), src >= 0
+			})
 			assert.Equal(t, tc.wantRes, res)
 		})
 	}
