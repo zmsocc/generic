@@ -38,6 +38,7 @@ func NewLinkedListOf[T any](src []T) *LinkedList[T] {
 	return list
 }
 
+// Get 获取索引在 index 处的链表值
 func (l *LinkedList[T]) Get(index int) (T, error) {
 	if !l.checkIndex(index) {
 		var t T
@@ -91,6 +92,7 @@ func (l *LinkedList[T]) Add(val T, index int) error {
 	return nil
 }
 
+// Set 将 LinkedList 下标为 index 的位置的元素改为 val
 func (l *LinkedList[T]) Set(val T, index int) error {
 	if !l.checkIndex(index) {
 		return errs.NewErrIndexOutOfRange(l.length-1, index)
@@ -100,6 +102,7 @@ func (l *LinkedList[T]) Set(val T, index int) error {
 	return nil
 }
 
+// Delete 删除 LinkedList 下标在 index 处的值
 func (l *LinkedList[T]) Delete(index int) error {
 	if !l.checkIndex(index) {
 		return errs.NewErrIndexOutOfRange(l.length-1, index)
@@ -114,14 +117,17 @@ func (l *LinkedList[T]) Delete(index int) error {
 	return nil
 }
 
+// Len 返回链表长度
 func (l *LinkedList[T]) Len() int {
 	return l.length
 }
 
+// Cap 返回链表容量，和长度一样
 func (l *LinkedList[T]) Cap() int {
 	return l.Len()
 }
 
+// AsSlice 将链表转换为切片并返回切片
 func (l *LinkedList[T]) AsSlice() []T {
 	if l.length == 0 {
 		return nil
