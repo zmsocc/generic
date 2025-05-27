@@ -90,16 +90,6 @@ func (l *SkipList[T]) Insert(val T) {
 	l.length++
 }
 
-func (l *SkipList[T]) AsSlice() []T {
-	cur := l.head
-	slice := make([]T, 0, l.length)
-	for cur.forward[0] != nil {
-		slice = append(slice, cur.forward[0].val)
-		cur = cur.forward[0]
-	}
-	return slice
-}
-
 func (l *SkipList[T]) DeleteElement(target T) bool {
 	cur, update := l.traverse(target, l.level)
 	node := cur.forward[0]
@@ -126,6 +116,20 @@ func (l *SkipList[T]) Peek() (T, error) {
 		return zero, errors.New("跳表为空")
 	}
 	return cur.val, nil
+}
+
+func (l *SkipList[T]) Len() int {
+	return l.length
+}
+
+func (l *SkipList[T]) AsSlice() []T {
+	cur := l.head
+	slice := make([]T, 0, l.length)
+	for cur.forward[0] != nil {
+		slice = append(slice, cur.forward[0].val)
+		cur = cur.forward[0]
+	}
+	return slice
 }
 
 // 查找目标值 val 的插入/删除位置，记录路径信息(update 切片)
