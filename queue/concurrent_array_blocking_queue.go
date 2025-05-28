@@ -22,19 +22,17 @@ type ConcurrentArrayBlockingQueue[T any] struct {
 // 容量会在最开始的时候就初始化好
 // capacity 必须为正数
 func NewConcurrentArrayBlockingQueue[T any](capacity int) *ConcurrentArrayBlockingQueue[T] {
-	mutex := &sync.RWMutex{}
 	semaForEnqueue := semaphore.NewWeighted(int64(capacity))
 	semaForDequeue := semaphore.NewWeighted(int64(capacity))
 	// error暂时不处理，因为目前没办法处理，只能考虑panic掉
 	// 相当于将信号量置空
 	_ = semaForDequeue.Acquire(context.TODO(), int64(capacity))
-	res := &ConcurrentArrayBlockingQueue[T]{
+	return &ConcurrentArrayBlockingQueue[T]{
 		data:       make([]T, capacity),
-		mutex:      mutex,
+		mutex:      &sync.RWMutex{},
 		enqueueCap: semaForEnqueue,
 		dequeueCap: semaForDequeue,
 	}
-	return res
 }
 
 // Enqueue 入队
