@@ -1,4 +1,4 @@
-package shrink
+package slice
 
 func calCapacity(c int, l int) (int, bool) {
 	if l <= 0 {
